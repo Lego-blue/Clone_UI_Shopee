@@ -1,0 +1,334 @@
+/* CẤU HÌNH CHUNG */
+
+/* :root chọn thành phần gốc của vb, trong vb html thì tp gốc là <html>
+- after, before:
++ Đây là 2 pseudo-element: phần tử giả, -> dùng để tạo các phần tử giả trong element;
++ before tạo ra 1 một pt giả luôn là element con đầu tiên của elem đc sd before
++ after tạo ra 1 một ptu giả luôn là element cuối cùng của elem đc sd after
++ Phải luôn có thuộc tính content: "";
++ Phần tử giả tạo ra sẽ có display: inline
++ IMG không thể áp dụng 
+giả sử có: <p> Xin </p>; muốn thêm vào phía sau ->
+p::after{
+    content: "chao";
+}
+
++ active: là thành phần có thuộc tính riêng khác tp còn lại*/
+
+ /* DÙNG CHUNG */
+/* BIẾN GIẢ */
+:root{
+    --white-color: #fff;
+    --black-color: #000;
+    --text-color : #333;
+    --primary-color: #EE4D2D;
+    --border-color: #dbdbdb;
+    --star-gold-color: #FFCE3E; 
+
+    --header-height: 124px;
+    --navbar-height: 50px;
+    --header-with-search-height: calc(var(--header-height) - var(--navbar-height));
+    --header-sort-bar-height: 46px;
+}
+
+*{
+    /* kế thừa box-sizing của html; box-sizing: giữ nguyên kthuoc khi them padding, margin */
+    box-sizing: inherit; 
+
+}
+
+html{
+    /* = 12px = 1.2rem */
+    font-size: 62.5%; 
+    line-height: 1.6rem;
+    /* font chữ không có chân */
+    font-family: 'Roboto', sans-serif; 
+    box-sizing: border-box;
+}
+
+/* Nguyên tắc: từ lớn đến bé
+.grid{
+    .row {
+        .column{
+ 
+        }
+    }
+}
+
+*/
+
+
+/* Responsive tương thích trên từng màn hình có kthuoc khác nhau */
+
+.grid__row{
+    /* các phần tử con cùng nằm 1 hàng và nếu tổng kth chúng > 1200 
+    thì nhảy xuống hàng */
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: -5px;
+    margin-right: -5px;
+}
+
+/* Test */
+.grid__column-2{
+    /* trên Pc khoảng cách mặc định giữa các column 24px */
+    padding-left: 5px;
+    padding-right: 5px;
+    width: 16.6667%;
+}
+
+/*PHẦN CHÂN: tỉ lệ 2.4 dành cho sản phẩm của shopee; 5 *20 = 100*/
+.grid__column-2-4{
+    padding-left: 5px;
+    padding-right: 5px;
+    width: 20%;
+}
+
+
+.grid__column-10{
+    padding-left: 5px;
+    padding-right: 5px;
+    width: 83.3334%;
+}
+
+/* CÁCH PHÂN CHIA: 
++ grid lớn bao trọn:
+-> grid__row: gồm grid__column-2 và grid-column-10
++ trong grid-column-10 gồm: 
+grid-row: flex-wrap = wrap
+và  grid-column2-4: môi item chiếm 20% ->
+5 items = 100%, nên nếu xuất hiện từ 6 items -> xuống hàng
+
+ */
+
+
+
+/* qr code */
+
+@keyframes fadeIn{
+    /* từ khi xuất hiện có opacity 0 */
+    from{
+        opacity: 0;
+    }
+
+    to{
+        opacity: 1;
+    }
+}
+
+/* sử dụng cho modal body: hiển thị từ kích thước 70% -> 100% */
+@keyframes growth{
+    from{
+        transform: scale(var(--growth-from));
+    }
+    
+    to{
+        transform: scale(var(--growth-to));
+    }
+}
+
+
+/* MODAL */
+.modal{
+    /* tạo modal */
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    /* để căn giữa */
+    display: flex;
+    animation: fadeIn linear 0.1s;
+    display: none;
+}
+
+.modal__overlay{
+    /* con modal; lấy modal làm trục tọa độ chính */
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal__body{
+    /* vì overlay có position nên nó nằm cao hơn các lớp khác; Khắp phục: */
+    position:relative;
+    margin: auto;
+   /* overlay và body đều có z-index mặc định = 0;  */
+   z-index: 1;
+   --growth-from: 0.7;
+   --growth-to: 1;
+   animation: growth linear 0.1s;
+}
+
+
+.btn{
+    /* thường không đặt cứng; 124px: của nút Xem tất cả*/
+    min-width: 124px;
+    height: 36px;
+    text-decoration: none;
+    border: none;
+    border-radius: 2px;
+    font-size: 1.5rem;
+    /* bỏ padding mặc đinh -> chữ được căn giữa + thêm*/
+    padding: 0 12px;
+    cursor: pointer;
+    color: var(--text-color);
+    background-color: var(--white-color);
+    /* dùng căn giữa chữ trong các mạng xã hội 
+    inline-flex: các btn nằm trên 1 dòng*/
+    display: inline-flex;
+    /* nội dung căn ra giữa theo chiều ngang khối */
+    justify-content: center;
+    align-items: center;
+    line-height: 1.6rem;
+}
+
+.btn.btn--normal:hover{
+    /* thêm class tránh các thẻ con như mạng xh bị ảnh hưởng */
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+
+/* Bắt buộc phải gọi từ .btn tới btn--primary -> 
+chỉ css cho element có 2 class này(nút đăng ký) */
+.btn.btn--primary{
+    background-color: var(--primary-color);
+    color: var(--white-color);
+}
+
+.btn.btn--disable{
+    cursor: default;
+    background-color: #c3c3c3;
+    color: #949494;
+}
+
+.btn.btn--size-s{
+    height: 32px;
+    font-size: 12px;
+    padding: 0 8px;
+    
+}
+
+.open{
+    display: flex;
+}
+
+.auth-form .login{
+    display: none;
+} 
+
+.auth-form .open-login{
+    display: flex;
+}
+
+/* SELECTION */
+.select-input{
+    /* cha của ul */
+    position: relative;
+    min-width: 200px;
+    height: 36px;
+    padding: 0 12px;
+    border-radius: 2px;
+    background-color: var(--white-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+/* font-size phải css vào thẻ bên trong trực tiếp chứa nó */
+.select-input__label{
+   font-size: 1.4rem;
+}
+
+.select-input__icon
+{
+    font-size: 1.3rem;
+    color: #4a4a4a;
+    /* chỉ để căn chỉnh */
+    position: relative;
+    top: 1px;
+}
+
+/* UL xuất hiện khi được hover */
+.select-input:hover .select-input__list
+{
+    display: block;
+}
+
+/* ul */
+.select-input__list{
+    position: absolute;
+    /* left, right -> khiến chiều ngang = 100% */
+    left: 0;
+    right: 0;
+    top: 28px;
+    border-radius: 2px;
+    background-color: var(--white-color);
+    padding: 8px 16px;
+    list-style: none;
+    z-index: 1;
+    display: none;
+
+}
+
+.select-input__link{
+    text-decoration: none;
+    font-size: 1.4rem;
+    color: var(--text-color);
+    display: block;
+    /* khoảng cách cho 2 a */
+    padding: 8px 0;
+}
+
+.select-input__link:hover{
+    color: var(--primary-color);
+}
+
+/* PHÂN TRANG */
+
+.pagination{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* li */
+.pagination-item{
+    list-style: none;
+    margin: 0 12px;
+}
+
+.pagination-item__link{
+    text-decoration: none;
+    font-size: 1.8rem;
+    font-weight: 300;
+    color: #939393;
+    display: block;
+    /* tối thiểu */
+    min-width: 40px;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+    border-radius: 2px;
+}
+
+
+/* ***riêng active thì thẻ a bên trong có màu da cam */
+.pagination-item--active .pagination-item__link{
+   background-color: var(--primary-color);
+   color: var(--white-color);
+}
+
+.pagination-item--active .pagination-item__link:hover
+{
+    background-color: #ed5c3f;
+}
+
+
+
+/* Tạo biến giả làm cầu: 
+::ater tại header__notify: ban đầu đứng dưới cùng của khối hiển thị thông báo
+sau đó được đẩy lên nhờ top: -16px
+::before tạo mũi tên đứng đầu */
