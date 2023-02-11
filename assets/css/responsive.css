@@ -1,18 +1,9 @@
-/* Sửa trên các giao diện 
-Cách sửa: 
-1. Viết class chung(như hiden) trên từng giao diện rồi xét,
-thành phần nào cần phải ẩn trên giao diện nào thì sẽ đưa class vào
-2. Một số class viết riêng như header__navbar để chỉnh sửa chiều cao-ngang,...*/
-
-/* Mobile and tablet */
-@media (max-width: 1023px)
-{
-    .hide-on-mobile-tablet{
+@media (max-width: 1023px) {
+    .hide-on-mobile-tablet {
         display: none;
     }
 
-
-    .header{
+    .header {
         position: fixed;
         top: 0;
         right: 0;
@@ -20,175 +11,144 @@ thành phần nào cần phải ẩn trên giao diện nào thì sẽ đưa clas
         z-index: 10;
     }
 
-    /* khi header nổi lên,
-     class này nhảy lên chiếm chỗ header  và khối div mới bổ sung-> sửa */
-    .app__container{
-       margin-top: calc(var(--header-height) + var(--header-sort-bar-height));
+    .app__container {
+        margin-top: calc(var(--header-height) + var(--header-sort-bar-height));
     }
 
-    /* Phần sp dưới giỏ hàng: ẩn mũi tên - nằm ngang chiếm hết chiều ngang */
-    .header__cart-list{
+    .header__cart-list {
         position: fixed;
-        /* cách header 1 khoảng header-height */
         top: var(--header-height);
         right: 0;
         width: 100%;
-        /* chỉnh sửa khoảng cách; 644 của gridwide*/
-        padding: 0 calc((100% - 644px)/2);
+
+        padding: 0 calc((100% - 644px) / 2);
     }
 
-    .header__cart-list::after{  
+    .header__cart-list::after {
         display: none;
     }
 
-     /*Phần bổ sung */
-    .header__sort-bar{
-       display: flex;
+    .header__sort-bar {
+        display: flex;
     }
-    
-    .app__content{
-        padding-top: 8px; 
+
+    .app__content {
+        padding-top: 8px;
     }
 }
 
-/* only tablet */
-@media (min-width: 740px) and (max-width: 1023px)
-{
-    /* ĐỊNH NGHĨA LẠI ROOT */
-    :root{
-        /* trên giao diện này đã ẩn navbar -> chỉnh sửa lại chiều cao header cho cân đối */
+@media (min-width: 740px) and (max-width: 1023px) {
+    :root {
         --header-height: 68px;
         --navbar-height: 0px;
     }
-    .hide-on-tablet{
+    .hide-on-tablet {
         display: none;
     }
-    
-    /* thu bé kích thước cart và đẩy sang phải */
-    .header__cart{
+
+    .header__cart {
         width: 80px;
         text-align: right;
     }
-
- 
-
 }
 
-/* Mobile */
-@media (max-width: 739px) 
-{
-    /* ĐỊNH NGHĨA LẠI ROOT */
-    :root{
-        /* trên giao diện này đã ẩn navbar -> chỉnh sửa lại chiều cao header cho cân đối */
+@media (max-width: 739px) {
+    :root {
         --header-height: 54px;
         --navbar-height: 0px;
     }
-    .hide-on-mobile{
+    .hide-on-mobile {
         display: none;
     }
 
-    .show-on-mobile{
+    .show-on-mobile {
         display: block;
     }
 
-    /* căn chỉnh các item */
-    .header-with-search{
-       justify-content: space-between;
+    .header-with-search {
+        justify-content: space-between;
     }
 
-    /* Phải bỏ đi chiều ngang của các item mới có thể căn chỉnh nằm giữa */
     .header__cart,
-    .header__logo{
+    .header__logo {
         width: unset;
     }
 
-    .header__search{
+    .header__search {
         position: fixed;
         top: 0;
         left: 0;
         right: 0;
-        top: var(--header-height) ;   
+        top: var(--header-height);
         height: 46px;
         box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
         z-index: 1;
         padding: 0 16px;
-        animation: mobileSearchSideIn linear .3s;
+        animation: mobileSearchSideIn linear 0.3s;
         display: none;
-        /* hiện khi focus vào checkbox */
     }
 
-    @keyframes  mobileSearchSideIn{
-        /* start */
-        from{
+    @keyframes mobileSearchSideIn {
+        from {
             opacity: 0;
-            top: calc(var(--header-height)/2);
+            top: calc(var(--header-height) / 2);
         }
 
-        /* end */
-        to{
+        to {
             opacity: 1;
             top: var(--header-height);
         }
     }
 
-    /* khi hover vào  */
-    .header__search-checkbox:checked ~ .header__search{
-         display: flex;
-    } 
+    .header__search-checkbox:checked ~ .header__search {
+        display: flex;
+    }
 
-    .header__search-history
-    {
+    .header__search-history {
         position: fixed;
         width: 100%;
-        /* chiều cao của header + chiều cao của phần mới bs */
+
         top: calc(var(--header-height) + var(--header-sort-bar-height));
         left: 0;
         box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
     }
 
-    /* footer */
-    .pagination-item{
-       margin: 0;
-       
+    .pagination-item {
+        margin: 0;
     }
 
-    .pagination-item__link{
+    .pagination-item__link {
         min-width: 36px;
         font-size: 1.6rem;
         height: 28px;
     }
 
-    .footer__heading{
+    .footer__heading {
         text-align: center;
     }
 
-    .app__content{
+    .app__content {
         margin: 0 4px;
     }
 
-    .header__mobile-search{
+    .header__mobile-search {
         display: block;
     }
 
-    .mobile-category{
+    .mobile-category {
         display: block;
     }
 
-    
-    /* logo shopee */
-    .header__logo-img{
+    .header__logo-img {
         width: 110px;
     }
 
-
-    .footer__content{
-        /*các thành phần con cách lề  */
+    .footer__content {
         padding: 0 16px;
     }
-    
+
     .footer__download,
-    .footer-item__link{
+    .footer-item__link {
         justify-content: center;
     }
-
 }
