@@ -1354,9 +1354,7 @@
     line-height: 1.3rem;
     color: var(--white-color);
     font-weight: 600;
-
     position: relative;
-    top: -12px;
 }
 
 .home-product-item__sale-off::after {
